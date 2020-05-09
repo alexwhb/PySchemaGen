@@ -3,7 +3,13 @@
 This is a very rudimentary project that allows you to generate
 a flat but complex schema off of a flat json dict.
 
-example: 
+I built this because I write a lot of data import systems in my 
+free time just scraping stuff from public APIs or the web and I find it truly tedious
+to write schemas all the time when im not building anything production ready. 
+so this is just a system to fast track that process by spitting out a schema based on a dictinary. 
+
+#### How do I use it?
+
 ```python
 from pydbgen import Parser
 
@@ -15,6 +21,8 @@ if __name__ == '__main__':
         "keyFour": 1.5,
     }
     
+    # explicitly typing the param names like this is not required. 
+    # I'm just doing it to make it clear what goes where. 
     p = Parser(data=dictionary_data, table_name="MyTable")
     p.write_all(root_module_path="./my_module")
 ``` 
