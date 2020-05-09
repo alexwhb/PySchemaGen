@@ -28,11 +28,11 @@ if __name__ == '__main__':
 ``` 
 
 
-this above method will generate a new module with [orator](https://orator-orm.com/) schema definition and model definition 
+This above method will generate a new module with [orator](https://orator-orm.com/) schema definition and model definition 
 automatically generated from the dict that you passed in. Currently this only works with single level dictionaries, 
 though I might build on this in the future. 
 
-it will output a directory structure like this: 
+It will output a directory structure like this: 
 ```
 my_module
 |__ __init__.py
@@ -51,4 +51,4 @@ my_module
 This project assumes you have Orator-Orm installed. If you have that you are good to go. 
 
 
-feel free to fork and send PRs my way. :) 
+Feel free to fork and send PRs my way. :) 
