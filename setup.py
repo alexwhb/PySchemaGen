@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 setup(
     name="pyschemagen",
     version="0.0.1",
-    author='Alexwhb',
+    author='alexwhb',
     description="A package to generate orator DB schemas from a python dict.",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -14,7 +14,6 @@ setup(
     packages=['pyschemagen'],
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.4',
