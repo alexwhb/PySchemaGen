@@ -68,7 +68,7 @@ class {self._model_name}(Model):
 
     @property
     def _import_module_src(self):
-        return f"""from .{self._model_name.lower()} import {self._model_name}
+        return f"""from {self._package_name}.{self._model_name.lower()} import {self._model_name}
 import re
 
 
