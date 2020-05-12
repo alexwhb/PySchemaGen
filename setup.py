@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup(
-    name="PySchemaGen",
+    name="pyschemagen",
     version="0.0.1",
     author='alexwhb',
     description="A package to generate orator DB schemas from a python dict.",
