@@ -10,6 +10,7 @@ setup(
     description="A package to generate orator DB schemas from a python dict.",
     long_description=long_description,
     long_description_content_type="text/markdown",
+    license='Apache 2.0',
     url="https://github.com/alexwhb/PySchemaGen",
     packages=['pyschemagen'],
     classifiers=[
