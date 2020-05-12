@@ -1,4 +1,4 @@
-from pydbgen.element_types import TextElement, StringElement, IntElement, FloatElement, BoolElement, TimestampElement, \
+from pyschemagen.element_types import TextElement, StringElement, IntElement, FloatElement, BoolElement, TimestampElement, \
     RootElement
 from os import mkdir
 from os import path

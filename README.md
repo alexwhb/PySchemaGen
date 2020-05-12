@@ -11,7 +11,7 @@ so this is just a system to fast track that process by spitting out a schema bas
 #### How do I use it?
 
 ```python
-from pydbgen import Parser
+from pyschemagen import Parser
 
 if __name__ == '__main__':
     dictionary_data = {
