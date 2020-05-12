@@ -23,8 +23,9 @@ if __name__ == '__main__':
     
     # explicitly typing the param names like this is not required. 
     # I'm just doing it to make it clear what goes where. 
+    
     p = Parser(data=dictionary_data, table_name="MyTable")
-    p.write_all(root_module_path="./my_module")
+    p.write_all()
 ``` 
 
 
@@ -46,6 +47,11 @@ my_module
 * **import.py** sets up a rudimentary import function that will convert the dictionary into the new schema format. 
 * **schema.py** sets up your db schema. 
 * **mytable.py** is the model file for your database. 
+
+Currently the schema makes everything nullable other than the primary key and created_at/updated_at fields. 
+This is to insure that the import of your data is not having errors, but you are free to adjust the schema as you see fit. 
+Ideally down the road I'd like to make this system able to accept a list of dicts so that it can evaluate essentially the 
+lowest common denominator of data between them, but that will have to come later. 
 
 ### Dependencies
 This project assumes you have Orator-Orm installed. If you have that you are good to go. 
