@@ -85,7 +85,6 @@ def import_into_{self._model_name.lower()}(data:dict):
     data = to_snake_case(data)    
     model = {self._model_name}()
     model.create(data)
-    model.save()
 """
 
     @property
