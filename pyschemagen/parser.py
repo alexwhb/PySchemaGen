@@ -1,13 +1,14 @@
-from pyschemagen.element_types import TextElement, StringElement, IntElement, FloatElement, BoolElement, TimestampElement, \
-    RootElement
+from pyschemagen.element_types import TextElement, StringElement, IntElement, FloatElement, BoolElement, \
+    TimestampElement, RootElement
 from os import mkdir
 from os import path
 
 
 class Parser:
-    def __init__(self, data: dict, table_name: str):
+    def __init__(self, data: dict, table_name: str, package_name="db"):
         self._data = data
         self._table_name = table_name
+        self._package_name = package_name
 
     @property
     def _elements(self):
@@ -36,7 +37,7 @@ class Parser:
         return '\n\t'.join([e.eval() for e in self._elements])
 
     @property
-    def _db_config(self) -> str:
+    def _db_config_src(self) -> str:
         return """from orator import DatabaseManager, Model
 
 config = {
@@ -50,6 +51,10 @@ db = DatabaseManager(config)
 Model.set_connection_resolver(db)"""
 
     @property
+    def _package_init_src(self):
+        return f"from {self._package_name} import config\n"
+
+    @property
     def _model_name(self):
         return self._table_name.title()
 
@@ -57,18 +62,12 @@ Model.set_connection_resolver(db)"""
     def _model_src(self) -> str:
         return f"""from orator import Model
 
-
 class {self._model_name}(Model):
     __guarded__ = ['id']
 """
 
-    # todo maybe make make it customizable weather we have a models dir or not.
-    def _generate_model_file(self, root_module_path: str) -> None:
-        with open(f"{root_module_path}/{self._model_name.lower()}.py", 'w') as f:
-            f.write(self._model_src)
-
     @property
-    def _import_module(self):
+    def _import_module_src(self):
         return f"""from .{self._model_name.lower()} import {self._model_name}
 import re
 
@@ -90,9 +89,9 @@ def import_into_{self._model_name.lower()}(data:dict):
 """
 
     @property
-    def _schema_module(self):
+    def _schema_module_src(self):
         return f"""from orator import Schema
-from .config import db
+from {self._package_name}.config import db
 
 
 if __name__ == "__main__": 
@@ -100,24 +99,26 @@ if __name__ == "__main__":
     {self.pretty_print()}    
 """
 
-    def write_all(self, root_module_path: str):
+    def write_all(self):
         # make the dir for our new module if it does not exist already.
+        root_module_path = f"./{self._package_name}"
+
         if not path.exists(root_module_path):
             mkdir(root_module_path)
 
         # we just make a module file.
-        with open(f"{root_module_path}/__init__.py", 'w'):
-            pass
+        with open(f"{root_module_path}/__init__.py", 'w') as f:
+            f.write(self._package_init_src)
 
         with open(f"{root_module_path}/config.py", 'w') as f:
-            f.write(self._db_config)
+            f.write(self._db_config_src)
 
         # create our model file
         with open(f"{root_module_path}/{self._model_name.lower()}.py", 'w') as f:
             f.write(self._model_src)
 
         with open(f"{root_module_path}/schema.py", 'w') as f:
-            f.write(self._schema_module)
+            f.write(self._schema_module_src)
 
         with open(f"{root_module_path}/import.py", "w") as f:
-            f.write(self._import_module)
+            f.write(self._import_module_src)

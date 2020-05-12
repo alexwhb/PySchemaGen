@@ -20,43 +20,44 @@ class BaseElement:
 class RootElement(BaseElement):
     def eval(self):
         return f"with schema.create('{self.field_name}') as table:" \
-               f"\n\ttable.increments('id')"
+               f"\n\ttable.increments('id')" \
+               f"\n\ttable.timestamps()"
 
 
 class TextElement(BaseElement):
 
     def eval(self):
-        return f"table.text('{self.field_name}')"
+        return f"table.text('{self.field_name}').nullable()"
 
 
 class StringElement(BaseElement):
 
     def eval(self):
-        return f"table.string('{self.field_name}')"
+        return f"table.string('{self.field_name}').nullable()"
 
 
 class IntElement(BaseElement):
 
     def eval(self):
-        return f"table.integer('{self.field_name}')"
+        return f"table.integer('{self.field_name}').nullable()"
 
 
 class DateElement(BaseElement):
 
     def eval(self):
-        return f"table.datetime('{self.field_name}')"
+        return f"table.datetime('{self.field_name}').nullable()"
 
 
 class FloatElement(BaseElement):
 
     def eval(self):
-        return f"table.float('{self.field_name}')"
+        return f"table.float('{self.field_name}').nullable()"
 
 
 class BoolElement(BaseElement):
 
     def eval(self):
-        return f"table.boolean('{self.field_name}')"
+        return f"table.boolean('{self.field_name}').nullable()"
 
 
 class TimestampElement(BaseElement):
@@ -64,7 +65,7 @@ class TimestampElement(BaseElement):
     def eval(self):
         # if self.child:
         #     self.child.eval()
-        return f"table.timestamp('{self.field_name}')"
+        return f"table.timestamp('{self.field_name}').nullable()"
 
 
 class DictElement(BaseElement):
